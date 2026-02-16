@@ -49,7 +49,7 @@ curl -s "https://geodata.gov.hk/gs/api/v1.0.0/locationSearch?q={QUERY}"
 
 ### Parking
 ```bash
-curl -s "https://resource.data.gov.hk/td/parking-vacancy/vacancy_all.xml"
+curl -s "https://api.data.gov.hk/v1/carpark-info-vacancy?data=info,vacancy&vehicleTypes=privateCar"
 ```
 
 ### Historical Data

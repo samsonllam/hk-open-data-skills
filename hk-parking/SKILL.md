@@ -1,85 +1,96 @@
 ---
 name: hk-parking
-description: Query real-time parking vacancy data for Hong Kong car parks from the Transport Department. Use when the user asks about parking availability, car park vacancies, where to find parking spots, or parking information in Hong Kong. Covers government and private car parks across HK.
+description: Query real-time parking vacancy data for Hong Kong car parks from the Transport Department. Use when the user asks about parking availability, car park vacancies, where to find parking spots, or parking information in Hong Kong. Covers 541+ government and private car parks across HK.
 ---
 
 # HK Parking Skill
 
-Query real-time parking vacancy data from the HK Transport Department. No API key needed.
+Query real-time parking vacancy data from HK government. No API key needed.
 
-## API Endpoint
+## API Endpoints
 
-```
-https://resource.data.gov.hk/td/parking-vacancy/vacancy_all.xml
-```
-
-Returns XML with real-time parking vacancy data for car parks across Hong Kong.
-
-## How to Query
-
+### Car Park Info (static data)
 ```bash
-curl -s "https://resource.data.gov.hk/td/parking-vacancy/vacancy_all.xml"
+curl -s "https://api.data.gov.hk/v1/carpark-info-vacancy?data=info&vehicleTypes=privateCar"
+```
+Returns: name, address, district, lat/lon, opening hours, facilities, height limits.
+
+### Car Park Vacancy (real-time)
+```bash
+curl -s "https://api.data.gov.hk/v1/carpark-info-vacancy?data=vacancy&vehicleTypes=privateCar"
+```
+Returns: real-time vacancy counts for 541+ car parks.
+
+### Combined Info + Vacancy
+```bash
+curl -s "https://api.data.gov.hk/v1/carpark-info-vacancy?data=info,vacancy&vehicleTypes=privateCar"
 ```
 
-## Response Format (XML)
+## Response Format
 
-```xml
-<car_park_vacancy>
-  <car_park>
-    <park_id>1</park_id>
-    <name_en>Murray Road Multi-Storey Car Park</name_en>
-    <name_tc>美利道多層停車場</name_tc>
-    <district_en>Central and Western</district_en>
-    <district_tc>中西區</district_tc>
-    <lat>22.2793</lat>
-    <lng>114.1600</lng>
-    <vehicle_type>P</vehicle_type>
-    <vacancy>30</vacancy>
-    <lastupdate>2026-02-16 12:00:00</lastupdate>
-  </car_park>
-  ...
-</car_park_vacancy>
+### Info response
+```json
+{
+  "results": [{
+    "park_Id": "12",
+    "name": "Amoy Plaza",
+    "nature": "commercial",
+    "carpark_Type": "multi-storey",
+    "displayAddress": "77 Ngau Tau Kok Road, Kowloon Bay, KLN",
+    "district": "Kwun Tong District",
+    "latitude": 22.3247,
+    "longitude": 114.2168,
+    "opening_status": "OPEN",
+    "facilities": ["evCharger", "disabilities", "unloading", "washing"],
+    "heightLimits": [{ "height": 1.9 }]
+  }]
+}
+```
+
+### Vacancy response
+```json
+{
+  "results": [{
+    "park_Id": "12",
+    "privateCar": [{
+      "vacancy_type": "A",
+      "vacancy": 5,
+      "vacancyEV": 0,
+      "vacancyDIS": 1,
+      "lastupdate": "2026-02-15 20:40:23"
+    }],
+    "motorCycle": [{ "vacancy_type": "A", "vacancy": 0 }],
+    "LGV": [{ "vacancy_type": "A", "vacancy": 0 }]
+  }]
+}
 ```
 
 **Fields**:
-- `park_id` — Unique car park ID
-- `name_en` / `name_tc` — Car park name
-- `district_en` / `district_tc` — District
-- `lat`, `lng` — WGS84 coordinates
-- `vehicle_type` — P (Private car), M (Motorcycle), C (Commercial vehicle)
-- `vacancy` — Number of available spaces (-1 = no data)
-- `lastupdate` — Last data update timestamp
+- `vacancy` — available spaces (for private cars)
+- `vacancyEV` — EV charger spaces
+- `vacancyDIS` — disabled parking spaces
+- `vacancy_type` — A (Available), L (Last few), F (Full)
+- `lastupdate` — data freshness timestamp
 
-## Parsing XML
+## Query Parameters
 
-Use Python to parse and filter:
-
-```bash
-curl -s "https://resource.data.gov.hk/td/parking-vacancy/vacancy_all.xml" | python3 -c "
-import sys, xml.etree.ElementTree as ET
-root = ET.parse(sys.stdin).getroot()
-for cp in root.findall('.//car_park'):
-    name = cp.find('name_en').text
-    vacancy = cp.find('vacancy').text
-    district = cp.find('district_en').text
-    vtype = cp.find('vehicle_type').text
-    if vtype == 'P' and vacancy and int(vacancy) > 0:
-        print(f'{name} ({district}): {vacancy} spaces')
-"
-```
+| Param | Values | Description |
+|-------|--------|-------------|
+| `data` | `info`, `vacancy`, or `info,vacancy` | What data to return |
+| `vehicleTypes` | `privateCar`, `LGV`, `HGV`, `motorCycle` | Filter by vehicle type |
+| `carparkIds` | comma-separated IDs | Filter specific car parks |
 
 ## Workflow
 
-1. Fetch the XML data
-2. Parse with XML parser
-3. Filter by district / location / vehicle type as needed
-4. Sort by vacancy count or distance from user's location
-5. Present top results with name, district, and available spaces
+1. Fetch vacancy data with `data=info,vacancy&vehicleTypes=privateCar`
+2. Filter by district or use lat/lon to find nearest car parks
+3. Sort by vacancy count (descending)
+4. Present with name, address, available spaces, and last update time
 
 ## Tips
 
-- `vacancy = -1` means no real-time data available for that car park
+- Use `data=info,vacancy` to get both name/location and vacancy in one call
+- `vacancy_type: "F"` means FULL — highlight this to users
 - Combine with hk-geodata skill to find car parks near a specific location
-- Data updates roughly every few minutes
-- Use 🅿️ emoji when presenting results
-- Show both English and Chinese names when the user's language is Chinese
+- Show EV charger availability when relevant
+- Use 🅿️ emoji and colour-code: green (>10), yellow (1-10), red (full)
