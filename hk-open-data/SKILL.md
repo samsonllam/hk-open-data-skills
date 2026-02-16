@@ -14,9 +14,16 @@ Unified access to Hong Kong government open data. Combines weather, transport, p
 | Weather & Forecasts | HK Observatory | JSON |
 | KMB Bus (1,621 routes) | data.etabus.gov.hk | JSON |
 | Citybus (416 routes) | rt.data.gov.hk | JSON |
+| GMB Minibus (569 routes) | data.etagmb.gov.hk | JSON |
+| NLB Lantau Bus (64 routes) | rt.data.gov.hk | JSON |
 | MTR Train Schedules | rt.data.gov.hk | JSON |
+| Light Rail (LRT) | rt.data.gov.hk | JSON |
 | Location Search | geodata.gov.hk | JSON |
-| Parking Vacancy | resource.data.gov.hk | XML |
+| Parking Vacancy (541+) | api.data.gov.hk | JSON |
+| A&E Wait Times (18 hospitals) | ha.org.hk | JSON |
+| RTHK News | rthk.hk | RSS/XML |
+| HKMA Financial Data | api.hkma.gov.hk | JSON |
+| LCSD Facilities (116+) | lcsd.gov.hk | JSON |
 | Historical Archives | api.data.gov.hk | JSON |
 
 ## Quick API Reference
@@ -52,6 +59,26 @@ curl -s "https://geodata.gov.hk/gs/api/v1.0.0/locationSearch?q={QUERY}"
 curl -s "https://api.data.gov.hk/v1/carpark-info-vacancy?data=info,vacancy&vehicleTypes=privateCar"
 ```
 
+### Hospital A&E
+```bash
+curl -s "https://www.ha.org.hk/opendata/aed/aedwtdata2-en.json"
+```
+
+### News (RTHK)
+```bash
+curl -sL "http://rthk9.rthk.hk/rthk/news/rss/e_expressnews_elocal.xml"
+```
+
+### Finance (HKMA)
+```bash
+curl -s "https://api.hkma.gov.hk/public/market-data-and-statistics/daily-monetary-statistics/daily-figures-interbank-liquidity"
+```
+
+### Facilities (LCSD)
+```bash
+curl -s "https://www.lcsd.gov.hk/datagovhk/facility/facility-en.json"
+```
+
 ### Historical Data
 ```bash
 curl -s "https://api.data.gov.hk/v1/historical-archive/list-file-versions?url={RESOURCE_URL}&start={YYYYMMDD}&end={YYYYMMDD}"
@@ -71,6 +98,10 @@ For questions that span multiple data types, query relevant APIs in parallel and
 
 For complete API specs, response schemas, and usage patterns for each data source, install the individual skills:
 - `hk-weather` — Full HKO API documentation
-- `hk-transport` — KMB/Citybus/MTR endpoints and station codes
-- `hk-parking` — Parking XML schema and parsing
+- `hk-transport` — KMB/Citybus/GMB/NLB/MTR/LRT endpoints and station codes
+- `hk-parking` — Parking vacancy API and parsing
 - `hk-geodata` — Location search and coordinate conversion
+- `hk-hospital` — A&E wait times and triage categories
+- `hk-news` — RTHK news RSS feeds
+- `hk-finance` — HKMA monetary statistics
+- `hk-facilities` — LCSD sports and leisure venues
