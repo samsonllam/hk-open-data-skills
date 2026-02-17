@@ -8,19 +8,21 @@ Agent skills for querying Hong Kong government open data. Built for [OpenClaw](h
 
 | Skill | Description | Install |
 |-------|-------------|---------|
-| 🌤️ **hk-weather** | HK Observatory weather, forecasts, warnings | `npx skills add samsonllam/hk-open-data-skills@hk-weather` |
-| 🚌 **hk-transport** | KMB, Citybus, GMB, NLB, MTR, Light Rail | `npx skills add samsonllam/hk-open-data-skills@hk-transport` |
+| 🌤️ **hk-weather** | Weather, forecasts, warnings, sunrise/sunset, lunar calendar, climate history | `npx skills add samsonllam/hk-open-data-skills@hk-weather` |
+| 🚌 **hk-transport** | KMB, Citybus, GMB minibus, NLB, MTR, Light Rail | `npx skills add samsonllam/hk-open-data-skills@hk-transport` |
 | 🅿️ **hk-parking** | Real-time car park vacancy (541+ parks) | `npx skills add samsonllam/hk-open-data-skills@hk-parking` |
 | 📍 **hk-geodata** | Location search, address lookup | `npx skills add samsonllam/hk-open-data-skills@hk-geodata` |
 | 🏥 **hk-hospital** | A&E waiting times (18 hospitals) | `npx skills add samsonllam/hk-open-data-skills@hk-hospital` |
 | 📰 **hk-news** | RTHK latest news headlines | `npx skills add samsonllam/hk-open-data-skills@hk-news` |
 | 💰 **hk-finance** | HKMA monetary data, HIBOR, exchange rates | `npx skills add samsonllam/hk-open-data-skills@hk-finance` |
 | 🏊 **hk-facilities** | LCSD sports centres & leisure facilities | `npx skills add samsonllam/hk-open-data-skills@hk-facilities` |
+| 📅 **hk-holidays** | HK public holidays calendar | `npx skills add samsonllam/hk-open-data-skills@hk-holidays` |
+| 🏠 **hk-mortgage** | HKMA residential mortgage statistics | `npx skills add samsonllam/hk-open-data-skills@hk-mortgage` |
 | 🇭🇰 **hk-open-data** | All-in-one combined skill | `npx skills add samsonllam/hk-open-data-skills@hk-open-data` |
 
 ## Data Sources
 
-- [Hong Kong Observatory](https://data.weather.gov.hk/) — Weather API
+- [Hong Kong Observatory](https://data.weather.gov.hk/) — Weather, climate, sunrise/sunset, lunar calendar
 - [KMB](https://data.etabus.gov.hk/) — Bus routes & ETA
 - [Citybus](https://rt.data.gov.hk/) — Bus routes & ETA
 - [GMB](https://data.etagmb.gov.hk/) — Minibus routes & ETA
@@ -30,8 +32,9 @@ Agent skills for querying Hong Kong government open data. Built for [OpenClaw](h
 - [Transport Department](https://api.data.gov.hk/) — Parking vacancy
 - [Hospital Authority](https://www.ha.org.hk/) — A&E wait times
 - [RTHK](https://rthk.hk/) — News RSS feeds
-- [HKMA](https://api.hkma.gov.hk/) — Financial data
+- [HKMA](https://api.hkma.gov.hk/) — Financial & mortgage data
 - [LCSD](https://www.lcsd.gov.hk/) — Leisure facilities
+- [1823 Gov Hotline](https://www.1823.gov.hk/) — Public holidays
 - [DATA.GOV.HK](https://data.gov.hk/) — Historical archives
 
 ## License

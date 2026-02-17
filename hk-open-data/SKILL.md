@@ -24,6 +24,11 @@ Unified access to Hong Kong government open data. Combines weather, transport, p
 | RTHK News | rthk.hk | RSS/XML |
 | HKMA Financial Data | api.hkma.gov.hk | JSON |
 | LCSD Facilities (116+) | lcsd.gov.hk | JSON |
+| Public Holidays | 1823.gov.hk | JSON |
+| Mortgage Statistics | api.hkma.gov.hk | JSON |
+| Sunrise/Sunset/Moonrise | HK Observatory | JSON |
+| Lunar Calendar | HK Observatory | JSON |
+| Historical Climate (since 1884) | HK Observatory | JSON |
 | Historical Archives | api.data.gov.hk | JSON |
 
 ## Quick API Reference
@@ -79,6 +84,22 @@ curl -s "https://api.hkma.gov.hk/public/market-data-and-statistics/daily-monetar
 curl -s "https://www.lcsd.gov.hk/datagovhk/facility/facility-en.json"
 ```
 
+### Public Holidays
+```bash
+curl -s "https://www.1823.gov.hk/common/ical/en.json"
+```
+
+### Mortgage Statistics
+```bash
+curl -s "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/banking/residential-mortgage-survey?sortby=end_of_month&sortorder=desc&pagesize=1"
+```
+
+### Sunrise/Sunset & Lunar Calendar
+```bash
+curl -s "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=SRS&lang=en&rformat=json&year=2026"
+curl -s "https://data.weather.gov.hk/weatherAPI/opendata/lunardate.php?date=20260217"
+```
+
 ### Historical Data
 ```bash
 curl -s "https://api.data.gov.hk/v1/historical-archive/list-file-versions?url={RESOURCE_URL}&start={YYYYMMDD}&end={YYYYMMDD}"
@@ -105,3 +126,5 @@ For complete API specs, response schemas, and usage patterns for each data sourc
 - `hk-news` — RTHK news RSS feeds
 - `hk-finance` — HKMA monetary statistics
 - `hk-facilities` — LCSD sports and leisure venues
+- `hk-holidays` — Public holidays calendar
+- `hk-mortgage` — HKMA residential mortgage data

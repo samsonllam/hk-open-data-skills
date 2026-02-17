@@ -67,6 +67,36 @@ Key fields:
 - Use weather emoji: ☀️ 🌤️ ⛅ 🌥️ ☁️ 🌧️ ⛈️ 🌪️ as appropriate
 - For Chinese responses, use 繁體中文 (match HK style)
 
+## Sunrise / Sunset / Moonrise
+```bash
+# Sunrise & sunset (full year)
+curl -s "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=SRS&lang=en&rformat=json&year=2026"
+# Moonrise & moonset (full year)
+curl -s "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=MRS&lang=en&rformat=json&year=2026"
+```
+Response: `{ fields: ["YYYY-MM-DD","RISE","TRAN.","SET"], data: [["2026-02-17","06:54","12:37","18:21"], ...] }`
+
+## Lunar Calendar
+```bash
+curl -s "https://data.weather.gov.hk/weatherAPI/opendata/lunardate.php?date=20260217"
+```
+Response: `{ "LunarYear": "丙午年，馬", "LunarDate": "正月初一" }`
+
+Date format: `YYYYMMDD`. Useful for Chinese festivals and traditional calendar queries.
+
+## Historical Climate Data
+```bash
+# Temperature (since 1884!)
+curl -s "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=CLMTEMP&lang=en&rformat=json&station=HKO"
+# Max temperature
+curl -s "...?dataType=CLMMAXT&lang=en&rformat=json&station=HKO"
+# Min temperature
+curl -s "...?dataType=CLMMINT&lang=en&rformat=json&station=HKO"
+```
+Response: `{ fields: ["Year","Month","Day","Value","Completeness"], data: [["1884","3","1","***",""], ...] }`
+
+49,000+ records of daily temperature data. Use for historical comparisons and trends.
+
 ## Full API Details
 
 See [references/api-endpoints.md](references/api-endpoints.md) for complete endpoint documentation, response schemas, and weather icon mappings.
