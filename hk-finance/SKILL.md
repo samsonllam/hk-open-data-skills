@@ -49,8 +49,16 @@ curl -s "https://api.hkma.gov.hk/public/market-data-and-statistics/daily-monetar
 
 ### Daily Exchange Rates
 ```bash
-curl -s "https://api.hkma.gov.hk/public/market-data-and-statistics/daily-monetary-statistics/daily-figures-exchange-rate"
+curl -s "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/er-ir/er-eeri-daily?pagesize=1"
 ```
+
+**Response fields**:
+- `end_of_day` — Date
+- `usd`, `gbp`, `jpy`, `cad`, `aud`, `sgd`, `eur`, `cny`, `krw` — Exchange rates vs HKD
+- `php`, `inr`, `idr`, `zar`, `thb`, `myr`, `twd`, `chf` — More currencies
+- `neeri_2020_trade_wgt` — Nominal Effective Exchange Rate Index (trade-weighted)
+
+Note: This endpoint does not support `sortby`. Use `pagesize` and `offset` for pagination.
 
 ## Response Format
 

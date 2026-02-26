@@ -76,12 +76,15 @@ curl -sL "http://rthk9.rthk.hk/rthk/news/rss/e_expressnews_elocal.xml"
 
 ### Finance (HKMA)
 ```bash
+# Interbank liquidity
 curl -s "https://api.hkma.gov.hk/public/market-data-and-statistics/daily-monetary-statistics/daily-figures-interbank-liquidity"
+# Exchange rates
+curl -s "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/er-ir/er-eeri-daily?pagesize=1"
 ```
 
 ### Facilities (LCSD)
 ```bash
-curl -s "https://www.lcsd.gov.hk/datagovhk/facility/facility-en.json"
+curl -s "https://www.lcsd.gov.hk/datagovhk/facility/facility-sc.json"
 ```
 
 ### Public Holidays
@@ -112,7 +115,7 @@ For questions that span multiple data types, query relevant APIs in parallel and
 **Example**: "我想去中環，天氣點？有冇車位？"
 1. Weather: `dataType=rhrread` → current conditions
 2. GeoData: `locationSearch?q=central` → get coordinates
-3. Parking: `vacancy_all.xml` → filter by Central district
+3. Parking: `carpark-info-vacancy?data=info,vacancy&vehicleTypes=privateCar` → filter by Central district
 4. Present combined answer
 
 ## Detailed Documentation

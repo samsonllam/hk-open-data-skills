@@ -33,10 +33,18 @@ curl -s "...?choose=by_date&from=2025-01&to=2025-12&sortby=end_of_month&sortorde
       "outstanding_loans_amt": 1917499,
       "outstanding_loans_amt_mom": 0.002,
       "outstanding_loans_amt_yoy": 0.025,
-      "new_loans_drawn_down_amt": 26234,
-      "new_loans_approved_amt": 38766,
-      "new_loans_approved_no": 9876,
-      "avg_loan_size": 3.93
+      "new_loans_drawn_amt": 20010,
+      "new_loans_drawn_amt_mom": 0.017,
+      "new_loans_approved_amt": 31201,
+      "new_loans_approved_amt_mom": 0.071,
+      "new_loans_approved": 6068,
+      "new_loans_approved_mom": 0.037,
+      "new_loans_approved_avg_size": 5.14,
+      "new_loans_approved_lv_ratio": 61,
+      "delinquency_ratio": 0.14,
+      "ir_new_loans_approved_hibor": 0.898,
+      "ir_new_loans_approved_blr": 0.013,
+      "ir_new_loans_approved_fixed": 0.048
     }]
   }
 }
@@ -46,9 +54,15 @@ curl -s "...?choose=by_date&from=2025-01&to=2025-12&sortby=end_of_month&sortorde
 - `outstanding_loans_amt` — Total outstanding mortgage loans (HKD million)
 - `outstanding_loans_amt_mom` — Month-on-month change (decimal, e.g., 0.002 = 0.2%)
 - `outstanding_loans_amt_yoy` — Year-on-year change
-- `new_loans_drawn_down_amt` — New loans drawn down (HKD million)
+- `new_loans_drawn_amt` — New loans drawn down (HKD million)
 - `new_loans_approved_amt` — New loans approved amount (HKD million)
-- `new_loans_approved_no` — Number of new loan applications approved
+- `new_loans_approved` — Number of new loan applications approved
+- `new_loans_approved_avg_size` — Average loan size (HKD million)
+- `new_loans_approved_lv_ratio` — Average loan-to-value ratio (%)
+- `delinquency_ratio` — Mortgage delinquency ratio (%)
+- `ir_new_loans_approved_hibor` — Share of new loans on HIBOR-based rates (decimal)
+- `ir_new_loans_approved_blr` — Share on best lending rate (decimal)
+- `ir_new_loans_approved_fixed` — Share on fixed rate (decimal)
 
 ## Query Parameters
 
